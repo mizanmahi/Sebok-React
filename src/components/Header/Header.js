@@ -6,12 +6,12 @@ import { theme } from '../../theme/theme';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import useFirebase from '../../hooks/useFirebase';
+import { useAuth } from '../../hooks/useAuth';
 
 const Header = () => {
    const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-   const { user, handleSignOut } = useFirebase();
+   const { user, handleSignOut } = useAuth();
    console.log(user);
 
    const [openDrawer, setOpenDrawer] = useState(false);
