@@ -23,6 +23,7 @@ const UnderlinedText = styled(Typography)(({ theme }) => ({
 
 const Signup = () => {
    const { handlePasswordSignup } = useFirebase();
+   const [userName, setUserName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
@@ -30,9 +31,7 @@ const Signup = () => {
       e.preventDefault();
       console.log(email, password);
 
-      handlePasswordSignup(email, password);
-
-    
+      handlePasswordSignup(email, password, userName);
    };
 
    return (
@@ -61,20 +60,18 @@ const Signup = () => {
                         onSubmit={handleSubmit}
                      >
                         <TextField
-                           id='standard-basic'
                            label='Username'
                            variant='standard'
                            sx={{ mb: 2 }}
+                           onChange={(e) => setUserName(e.target.value)}
                         />
                         <TextField
-                           id='standard-basic'
                            label='Email'
                            variant='standard'
                            sx={{ mb: 2 }}
                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <TextField
-                           id='standard-basic'
                            label='Password'
                            variant='standard'
                            sx={{ mb: 1 }}

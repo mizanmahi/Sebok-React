@@ -1,14 +1,18 @@
 import { Container, Typography, Button, Drawer } from '@mui/material';
-import { Box, padding, styled } from '@mui/system';
+import { Box, styled } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useState } from 'react';
 import { theme } from '../../theme/theme';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import useFirebase from '../../hooks/useFirebase';
 
 const Header = () => {
    const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
+   const { user, handleSignOut } = useFirebase();
+   console.log(user);
 
    const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -34,7 +38,12 @@ const Header = () => {
                   alignItems: 'center',
                }}
             >
-               <Typography variant='h3' component={Link} to='/' sx={{textDecoration: 'none', color: '#ffffff'}}>
+               <Typography
+                  variant='h3'
+                  component={Link}
+                  to='/'
+                  sx={{ textDecoration: 'none', color: '#ffffff' }}
+               >
                   <LocalHospitalIcon fontSize='large' />
                   Sebok
                </Typography>
@@ -59,17 +68,30 @@ const Header = () => {
                      >
                         Appointment
                      </Button>
-                     <Button
-                        variant='contained'
-                        color='secondary'
-                        component={Link}
-                        to='/login'
-                     >
-                        LogIn
-                     </Button>
+                     {!user ? (
+                        <Button
+                           variant='contained'
+                           color='secondary'
+                           component={Link}
+                           to='/login'
+                        >
+                           Login
+                        </Button>
+                     ) : (
+                        <Button
+                           variant='contained'
+                           color='error'
+                           onClick={handleSignOut}
+                        >
+                           Logout
+                        </Button>
+                     )}
                   </MenuContainer>
                )}
             </Box>
+
+            {/* ------------------- drawer---------------- */}
+
             <Drawer
                anchor='left'
                open={openDrawer}
@@ -99,7 +121,7 @@ const Header = () => {
                      component={Link}
                      to='/login'
                   >
-                     LogIn
+                     Login
                   </Button>
                </Box>
             </Drawer>
