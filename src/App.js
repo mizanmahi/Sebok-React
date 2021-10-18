@@ -5,6 +5,7 @@ import './App.css';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './theme/theme';
 import Home from './pages/Home';
+import ServiceDetails from './components/ServiceDetails/ServiceDetails';
 
 function App() {
    console.log(theme);
@@ -20,6 +21,9 @@ function App() {
                   </Route>
                   <Route exact path='/home'>
                      <Home />
+                  </Route>
+                  <Route exact path='/service/:serviceId'>
+                     <ServiceDetails />
                   </Route>
                </Switch>
             </BrowserRouter>
