@@ -6,6 +6,8 @@ import { ThemeProvider } from '@mui/material';
 import { theme } from './theme/theme';
 import Home from './pages/Home';
 import ServiceDetails from './components/ServiceDetails/ServiceDetails';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
 
 function App() {
    console.log(theme);
@@ -24,6 +26,12 @@ function App() {
                   </Route>
                   <Route exact path='/service/:serviceId'>
                      <ServiceDetails />
+                  </Route>
+                  <Route exact path='/login'>
+                     <Login />
+                  </Route>
+                  <Route exact path='/signup'>
+                     <Signup />
                   </Route>
                </Switch>
             </BrowserRouter>

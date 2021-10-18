@@ -1,13 +1,4 @@
-import {
-   Card,
-   CardContent,
-   CardMedia,
-   Container,
-   Grid,
-   IconButton,
-   Paper,
-   Typography,
-} from '@mui/material';
+import { Button, Container, Grid, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -20,15 +11,13 @@ const ServiceDetails = () => {
    useEffect(() => {
       fetch('/services.json')
          .then((res) => res.json())
-         .then((services) =>
-            setService(
-               services.find((service) => service.id === parseInt(serviceId))
-            )
-         );
-   }, []);
-
-   useEffect(() => {
-      console.log(service);
+         .then((services) => {
+            const newService = services.find(
+               (service) => service.id === parseInt(serviceId)
+            );
+            console.log(newService);
+            setService(newService);
+         });
    }, []);
 
    return (
@@ -40,10 +29,52 @@ const ServiceDetails = () => {
                alignItems='center'
                height='60vh'
             >
-               <Grid item md={10}>
+               <Grid item md={10} mt={15}>
                   <Paper>
-                      <Box></Box>
-                      <Box></Box>
+                     <Grid container>
+                        <Grid item sm={6} md={5}>
+                           <Box
+                              sx={{
+                                 minHeight: '400px',
+                                 backgroundImage: `url(${service.imageUrl})`,
+                                 backgroundSize: 'cover',
+                                 display: 'flex',
+                                 justifyContent: 'center',
+                                 alignItems: 'center',
+                              }}
+                           >
+                              <img
+                                 src={service.imageUrl}
+                                 alt=''
+                                 style={{
+                                    maxWidth: '100%',
+                                    alignSelf: 'center',
+                                 }}
+                              />
+                           </Box>
+                        </Grid>
+                        <Grid item sm={6} md={7} alignSelf='center'>
+                           <Box p={5}>
+                              <Typography
+                                 variant='h4'
+                                 color='primary'
+                                 sx={{ fontWeight: '600' }}
+                              >
+                                 {service.name}
+                              </Typography>
+                              <Typography
+                                 variant='body1'
+                                 sx={{ fontWeight: '400', my: 3 }}
+                                 color='gray'
+                              >
+                                 {service.description}
+                              </Typography>
+                              <Button variant='outlined' sx={{ py: 2, px: 5 }}>
+                                 Get this Service
+                              </Button>
+                           </Box>
+                        </Grid>
+                     </Grid>
                   </Paper>
                </Grid>
             </Grid>

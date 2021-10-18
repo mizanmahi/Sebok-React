@@ -34,7 +34,7 @@ const Header = () => {
                   alignItems: 'center',
                }}
             >
-               <Typography variant='h3'>
+               <Typography variant='h3' component={Link} to='/' sx={{textDecoration: 'none', color: '#ffffff'}}>
                   <LocalHospitalIcon fontSize='large' />
                   Sebok
                </Typography>

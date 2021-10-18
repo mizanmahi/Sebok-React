@@ -1,0 +1,5 @@
+.line {
+    height: 1px;
+    background: rgb(212, 209, 209);
+    flex-grow: 1;
+}
