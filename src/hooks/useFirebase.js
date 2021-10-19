@@ -10,6 +10,7 @@ import {
    signOut,
 } from 'firebase/auth';
 import initializeFirebase from '../firebase/firebase.init';
+import { useHistory } from 'react-router';
 
 initializeFirebase();
 
@@ -18,8 +19,11 @@ const useFirebase = () => {
    const [error, setError] = useState(null);
 
    const [userLoading, setUserLoading] = useState(true);
+   const [name, setName] = useState(null);
 
    const auth = getAuth();
+
+   const history = useHistory();
 
    const googleProvider = new GoogleAuthProvider();
 
@@ -29,10 +33,10 @@ const useFirebase = () => {
    };
 
    const handlePasswordSignup = (email, password, userName) => {
+      console.log(userName);
+      setName(userName);
       createUserWithEmailAndPassword(auth, email, password, userName)
          .then((result) => {
-            console.log(result.user);
-            setUser(result.user);
             setError(null);
 
             updateProfile(auth.currentUser, {
@@ -42,7 +46,10 @@ const useFirebase = () => {
                   console.log('user name set done');
                   setError(null);
                })
-               .catch((err) => setError(err.message));
+               .catch((err) => setError(err.message))
+               .finally(() => {
+                  history.push('/');
+               });
          })
          .catch((err) => {
             console.log(err.message);
@@ -72,6 +79,7 @@ const useFirebase = () => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
          if (user) {
             setUser(user);
+            setName(name);
          } else {
             setUser(null);
          }
@@ -92,6 +100,8 @@ const useFirebase = () => {
       handleSignOut,
       userLoading,
       setUserLoading,
+      name,
+      setName,
    };
 };
 

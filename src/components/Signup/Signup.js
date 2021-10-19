@@ -13,8 +13,6 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import useFirebase from '../../hooks/useFirebase';
 import { useAuth } from '../../hooks/useAuth';
 
-//  import './login.css';
-
 const UnderlinedText = styled(Typography)(({ theme }) => ({
    color: theme.palette.warning.main,
    textDecoration: 'underline',
@@ -27,16 +25,29 @@ const Signup = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
-   const { handleGoogleSignin, setError, setUserLoading } = useAuth();
+   const { handleGoogleSignin, setError, setUserLoading, error } = useAuth();
 
    const location = useLocation();
    const history = useHistory();
 
-   console.log(location);
+   const [emailErr, setEmailErr] = useState(null);
+   const [passErr, setPassErr] = useState(null);
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(email, password);
+
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+         setEmailErr('Please insert a valid email');
+         return;
+      }
+
+      if (password.length === 0) {
+         setPassErr("Password cant' be empty");
+         return;
+      } else if (password.length < 6) {
+         setPassErr('Password must contain at least 6 characters');
+         return;
+      }
 
       handlePasswordSignup(email, password, userName);
    };
@@ -54,6 +65,16 @@ const Signup = () => {
          .finally(() => {
             setUserLoading(false);
          });
+   };
+
+   const handleEmailChange = (e) => {
+      setEmailErr(null);
+      setEmail(e.target.value);
+   };
+
+   const handlePassChange = (e) => {
+      setPassErr(null);
+      setPassword(e.target.value);
    };
 
    return (
@@ -86,18 +107,27 @@ const Signup = () => {
                            variant='standard'
                            sx={{ mb: 2 }}
                            onChange={(e) => setUserName(e.target.value)}
+                           type='text'
+                           required
                         />
                         <TextField
                            label='Email'
                            variant='standard'
+                           type='email'
+                           required
                            sx={{ mb: 2 }}
-                           onChange={(e) => setEmail(e.target.value)}
+                           onChange={handleEmailChange}
+                           error={emailErr ? true : false}
+                           helperText={emailErr ? emailErr : ''}
                         />
                         <TextField
                            label='Password'
+                           type='password'
                            variant='standard'
                            sx={{ mb: 1 }}
-                           onChange={(e) => setPassword(e.target.value)}
+                           onChange={handlePassChange}
+                           error={passErr ? true : false}
+                           helperText={passErr ? passErr : ''}
                         />
                         {/* <Box
                             sx={{

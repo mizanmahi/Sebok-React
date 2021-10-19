@@ -21,8 +21,8 @@ const Header = () => {
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-   const { user, handleSignOut } = useAuth();
-   console.log(user);
+   const { user, handleSignOut, name, } = useAuth();
+   console.log(name);
 
    const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -138,7 +138,7 @@ const Header = () => {
                                  </Avatar>
                               )
                            }
-                           label={user.displayName}
+                           label={user.displayName ? user.displayName : name}
                            color='secondary'
                         />
                      )}
@@ -173,28 +173,38 @@ const Header = () => {
                      Sebok
                   </Typography>
 
-                  <Typography variant='body1' sx={{ mb: 2 }}>
-                     About us
-                  </Typography>
-                  <Typography variant='body1' sx={{ mb: 2 }}>
-                     Contact
-                  </Typography>
-
                   <Button
-                     variant='outlined'
-                     color='secondary'
-                     sx={{
-                        p: '1rem 2rem',
-                        fontWeight: '600',
-                        mb: 1,
-                        '&:hover': {
-                           background: theme.palette.secondary.main,
-                           color: theme.palette.primary.main,
-                        },
-                     }}
-                  >
-                     Appointment
-                  </Button>
+                        color='secondary'
+                        component={Link}
+                        to='/about'
+                        sx={{
+                           mr: 2,
+                           p: '.8rem 1.4rem',
+                           '&:hover': {
+                              background: theme.palette.secondary.main,
+                              color: theme.palette.primary.main,
+                           },
+                        }}
+                     >
+                        About us
+                     </Button>
+
+                     <Button
+                        color='secondary'
+                        component={Link}
+                        to='/appointment'
+                        sx={{
+                           mr: 2,
+                           mb: 1,
+                           p: '.8rem 1.4rem',
+                           '&:hover': {
+                              background: theme.palette.secondary.main,
+                              color: theme.palette.primary.main,
+                           },
+                        }}
+                     >
+                        Appointment
+                     </Button>
                   {!user ? (
                      <Button
                         variant='contained'

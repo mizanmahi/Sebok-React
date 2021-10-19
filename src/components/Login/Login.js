@@ -26,14 +26,32 @@ const Login = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
+   const [emailErr, setEmailErr] = useState(null);
+   const [passErr, setPassErr] = useState(null);
+
    const location = useLocation();
    const history = useHistory();
 
-   const { handlePasswordSignin, handleGoogleSignin, setError, setUserLoading } = useAuth();
+   const {
+      handlePasswordSignin,
+      handleGoogleSignin,
+      setError,
+      setUserLoading,
+      error,
+   } = useAuth();
 
    const submitHandler = (e) => {
       e.preventDefault();
       console.log({ email, password });
+
+      if (password.length === 0) {
+         setPassErr("Password cant' be empty");
+         return;
+      } else if (password.length < 6) {
+         setPassErr('Password must contain at least 6 characters');
+         return;
+      }
+
       handlePasswordSignin(email, password)
          .then((res) => {
             setError(null);
@@ -44,7 +62,8 @@ const Login = () => {
          .catch((err) => {
             console.log(err.message);
             setError(err.message);
-         }).finally(() => {
+         })
+         .finally(() => {
             setUserLoading(false);
          });
    };
@@ -58,9 +77,10 @@ const Login = () => {
                ? history.push(location.state.from.pathname)
                : history.push('/');
          })
-         .catch((err) => setError(err.message)).finally(() => {
+         .catch((err) => setError(err.message))
+         .finally(() => {
             setUserLoading(false);
-         });;
+         });
    };
 
    return (
@@ -98,12 +118,15 @@ const Login = () => {
                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <TextField
+                           required
                            label='Password'
                            variant='standard'
                            type='password'
                            color='warning'
                            sx={{ mb: 1 }}
                            onChange={(e) => setPassword(e.target.value)}
+                           error={passErr ? true: false}
+                           helperText={passErr ? passErr : ''}
                         />
                         <Box
                            sx={{
