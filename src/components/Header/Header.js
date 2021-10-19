@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '@emotion/react';
 
@@ -118,7 +119,7 @@ const Header = () => {
                               user.photoURL ? (
                                  <Avatar alt='user' src={user.photoURL} />
                               ) : (
-                                 <Avatar>user.displayName.slice(0,1)</Avatar>
+                                 <Avatar><AccountBoxIcon /></Avatar>
                               )
                            }
                            label={user.displayName}

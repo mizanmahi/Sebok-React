@@ -76,7 +76,7 @@ const Footer = () => {
                      Services
                   </Typography>
                   {services.map((service) => (
-                     <Typography variant='body2' sx={{ fontWeight: 300 }}>
+                     <Typography key={service.id} variant='body2' sx={{ fontWeight: 300 }}>
                         {service.name}
                      </Typography>
                   ))}

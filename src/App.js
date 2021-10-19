@@ -12,6 +12,7 @@ import AuthContextProvider from './context/AuthContextProvider';
 import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import About from './pages/About';
+import NotFount from './pages/NotFount';
 
 function App() {
    console.log(theme);
@@ -40,6 +41,9 @@ function App() {
                      </Route>
                      <Route exact path='/about'>
                         <About />
+                     </Route>
+                     <Route  path='*'>
+                        <NotFount />
                      </Route>
                   </Switch>
                   <Footer />
