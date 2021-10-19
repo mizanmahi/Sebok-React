@@ -6,7 +6,7 @@ import {
    Chip,
    Avatar,
 } from '@mui/material';
-import { borderRadius, borderRight, Box, styled } from '@mui/system';
+import { Box, styled } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useState } from 'react';
 // import { theme } from '../../theme/theme';
@@ -21,8 +21,8 @@ const Header = () => {
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-   const { user, handleSignOut, name, } = useAuth();
-   console.log(name);
+   const { user, handleSignOut, name } = useAuth();
+
 
    const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -174,37 +174,54 @@ const Header = () => {
                   </Typography>
 
                   <Button
-                        color='secondary'
-                        component={Link}
-                        to='/about'
-                        sx={{
-                           mr: 2,
-                           p: '.8rem 1.4rem',
-                           '&:hover': {
-                              background: theme.palette.secondary.main,
-                              color: theme.palette.primary.main,
-                           },
-                        }}
-                     >
-                        About us
-                     </Button>
+                     color='secondary'
+                     component={Link}
+                     to='/about'
+                     sx={{
+                        mr: 2,
+                        p: '.8rem 1.4rem',
+                        '&:hover': {
+                           background: theme.palette.secondary.main,
+                           color: theme.palette.primary.main,
+                        },
+                     }}
+                  >
+                     About us
+                  </Button>
 
-                     <Button
+                  <Button
+                     color='secondary'
+                     component={Link}
+                     to='/appointment'
+                     sx={{
+                        mr: 2,
+                        mb: 1,
+                        p: '.8rem 1.4rem',
+                        '&:hover': {
+                           background: theme.palette.secondary.main,
+                           color: theme.palette.primary.main,
+                        },
+                     }}
+                  >
+                     Appointment
+                  </Button>
+                  {user && (
+                     <Chip
+                        variant='outlined'
+                        sx={{ ml: 2, border: 0, fontSize: '16px' }}
+                        avatar={
+                           user.photoURL ? (
+                              <Avatar alt='user' src={user.photoURL} />
+                           ) : (
+                              <Avatar>
+                                 <AccountBoxIcon />
+                              </Avatar>
+                           )
+                        }
+                        label={user.displayName ? user.displayName : name}
                         color='secondary'
-                        component={Link}
-                        to='/appointment'
-                        sx={{
-                           mr: 2,
-                           mb: 1,
-                           p: '.8rem 1.4rem',
-                           '&:hover': {
-                              background: theme.palette.secondary.main,
-                              color: theme.palette.primary.main,
-                           },
-                        }}
-                     >
-                        Appointment
-                     </Button>
+                     />
+                  )}
                   {!user ? (
                      <Button
                         variant='contained'

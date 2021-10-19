@@ -16,8 +16,6 @@ import NotFount from './pages/NotFount';
 import Appointment from './pages/Appointment';
 
 function App() {
-   console.log(theme);
-
    return (
       <div className='App'>
          <AuthContextProvider>
@@ -46,7 +44,7 @@ function App() {
                      <ProtectedRoute exact path='/appointment'>
                         <Appointment />
                      </ProtectedRoute>
-                     <Route  path='*'>
+                     <Route path='*'>
                         <NotFount />
                      </Route>
                   </Switch>

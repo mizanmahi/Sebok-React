@@ -42,7 +42,13 @@ const Login = () => {
 
    const submitHandler = (e) => {
       e.preventDefault();
-      console.log({ email, password });
+
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+         setEmailErr('Please insert a valid email');
+         return;
+      } else if (error?.includes('user-not-found')) {
+         setEmailErr('No user with this mail');
+      }
 
       if (password.length === 0) {
          setPassErr("Password cant' be empty");
@@ -60,19 +66,31 @@ const Login = () => {
                : history.push('/');
          })
          .catch((err) => {
-            console.log(err.message);
-            setError(err.message);
+            if (err.message.includes('user-not-found')) {
+               setEmailErr('no user found with this mail');
+            } else if (err.message.includes('wrong-password')) {
+               setPassErr("Password didn't match");
+            }
          })
          .finally(() => {
             setUserLoading(false);
          });
    };
 
+   const handleEmailChange = (e) => {
+      setEmailErr(null);
+      setEmail(e.target.value);
+   };
+
+   const handlePassChange = (e) => {
+      setPassErr(null);
+      setPassword(e.target.value);
+   };
+
    const googleSigninHandler = () => {
       handleGoogleSignin()
          .then((res) => {
             setError(null);
-            console.log(res.user);
             location.state
                ? history.push(location.state.from.pathname)
                : history.push('/');
@@ -96,16 +114,22 @@ const Login = () => {
                   <Paper sx={{ padding: '2rem 3rem' }}>
                      <Typography
                         variant='h4'
-                        component='h2'
+                        component='span'
                         mb={3}
                         sx={{ fontWeight: 600 }}
                      >
                         Login
                      </Typography>
 
+                     {location.state && (
+                        <Typography color='primary' sx={{ mb: 2 }}>
+                           You Must Log In To Continue*
+                        </Typography>
+                     )}
+
                      <Box
                         component='form'
-                        sx={{ display: 'flex', flexDirection: 'column' }}
+                        sx={{ display: 'flex', flexDirection: 'column', mt: 1 }}
                         onSubmit={submitHandler}
                      >
                         <TextField
@@ -115,7 +139,9 @@ const Login = () => {
                            sx={{ mb: 2 }}
                            type='email'
                            required
-                           onChange={(e) => setEmail(e.target.value)}
+                           onChange={handleEmailChange}
+                           error={emailErr ? true : false}
+                           helperText={emailErr ? emailErr : ''}
                         />
                         <TextField
                            required
@@ -124,8 +150,8 @@ const Login = () => {
                            type='password'
                            color='warning'
                            sx={{ mb: 1 }}
-                           onChange={(e) => setPassword(e.target.value)}
-                           error={passErr ? true: false}
+                           onChange={handlePassChange}
+                           error={passErr ? true : false}
                            helperText={passErr ? passErr : ''}
                         />
                         <Box

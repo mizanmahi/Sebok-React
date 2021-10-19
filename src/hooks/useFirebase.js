@@ -33,7 +33,7 @@ const useFirebase = () => {
    };
 
    const handlePasswordSignup = (email, password, userName) => {
-      console.log(userName);
+      console.log(email, password, userName);
       setName(userName);
       createUserWithEmailAndPassword(auth, email, password, userName)
          .then((result) => {
@@ -43,16 +43,15 @@ const useFirebase = () => {
                displayName: userName,
             })
                .then((res) => {
-                  console.log('user name set done');
                   setError(null);
                })
                .catch((err) => setError(err.message))
                .finally(() => {
                   history.push('/');
+                  window.location.reload()
                });
          })
          .catch((err) => {
-            console.log(err.message);
             setError(err.message);
          });
    };
@@ -68,7 +67,6 @@ const useFirebase = () => {
          .then((res) => console.log('signed out'))
          .catch((err) => {
             setError(err.message);
-            console.log(err.message);
          })
          .finally(() => {
             setUserLoading(false);

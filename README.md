@@ -1,4 +1,13 @@
 # Sebok Medicare Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## A modern way of medical service, We strive to build a nation with good health
 
+This project was bootstrapped with [Sebok](https://sebok-2b3c9.web.app/about)
+
+### Tools I used
+
+-  React js for frontend
+-  Material ui for design
+-  React Icons
+-  React Router
+-  Firebase for auth

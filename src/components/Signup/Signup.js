@@ -25,7 +25,7 @@ const Signup = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
-   const { handleGoogleSignin, setError, setUserLoading, error } = useAuth();
+   const { handleGoogleSignin, setError, setUserLoading } = useAuth();
 
    const location = useLocation();
    const history = useHistory();
@@ -56,7 +56,6 @@ const Signup = () => {
       handleGoogleSignin()
          .then((res) => {
             setError(null);
-            console.log(res.user);
             location.state
                ? history.push(location.state.from.pathname)
                : history.push('/');
