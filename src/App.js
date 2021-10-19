@@ -13,6 +13,7 @@ import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import About from './pages/About';
 import NotFount from './pages/NotFount';
+import Appointment from './pages/Appointment';
 
 function App() {
    console.log(theme);
@@ -42,6 +43,9 @@ function App() {
                      <Route exact path='/about'>
                         <About />
                      </Route>
+                     <ProtectedRoute exact path='/appointment'>
+                        <Appointment />
+                     </ProtectedRoute>
                      <Route  path='*'>
                         <NotFount />
                      </Route>

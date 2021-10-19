@@ -27,22 +27,14 @@ const About = () => {
                         color='secondary'
                         sx={{ my: 3 }}
                      >
-                        Donating Blood Makes a Big Difference in the Lives of
-                        Others.You may still donate blood, platelets or plasma
-                        after receiving a COVID-19 vaccine. Knowing the name of
-                        the manufacturer of the vaccine is important in
-                        determining your blood donation eligibility. To learn
-                        more about the COVID-19 vaccine and blood donation, Your
-                        blood is precious, and your donations are truly
-                        life-saving. From how donating works to who needs it,
-                        there's so much to know about blood.
+                       Sebok Medicare has consistently led game-changing developments in healthcare by bringing to the people, the latest innovations in key medical specialities and superspecialities on par with the West. We highlight in this section some of the latest procedures, services and therapies that Sebok provides, in keeping with the tradition of providing outstanding healthcare of international standards.
                      </Typography>
                      <Button
                         variant='outlined'
                         color='secondary'
                         sx={{ p: '.6rem 2rem' }}
                      >
-                        Donate
+                        Know more
                      </Button>
                   </Box>
                </Grid>

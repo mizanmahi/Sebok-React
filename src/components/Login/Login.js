@@ -29,7 +29,7 @@ const Login = () => {
    const location = useLocation();
    const history = useHistory();
 
-   const { handlePasswordSignin, handleGoogleSignin, setError } = useAuth();
+   const { handlePasswordSignin, handleGoogleSignin, setError, setUserLoading } = useAuth();
 
    const submitHandler = (e) => {
       e.preventDefault();
@@ -44,6 +44,8 @@ const Login = () => {
          .catch((err) => {
             console.log(err.message);
             setError(err.message);
+         }).finally(() => {
+            setUserLoading(false);
          });
    };
 
@@ -56,7 +58,9 @@ const Login = () => {
                ? history.push(location.state.from.pathname)
                : history.push('/');
          })
-         .catch((err) => setError(err.message));
+         .catch((err) => setError(err.message)).finally(() => {
+            setUserLoading(false);
+         });;
    };
 
    return (

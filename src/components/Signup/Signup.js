@@ -27,7 +27,8 @@ const Signup = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
-   const { handleGoogleSignin, setError } = useAuth();
+   const { handleGoogleSignin, setError, setUserLoading } = useAuth();
+
    const location = useLocation();
    const history = useHistory();
 
@@ -49,7 +50,10 @@ const Signup = () => {
                ? history.push(location.state.from.pathname)
                : history.push('/');
          })
-         .catch((err) => setError(err.message));
+         .catch((err) => setError(err.message))
+         .finally(() => {
+            setUserLoading(false);
+         });
    };
 
    return (
@@ -152,7 +156,6 @@ const Signup = () => {
                      >
                         Continue With Google
                      </Button>
-                     
                   </Box>
                </Grid>
             </Grid>

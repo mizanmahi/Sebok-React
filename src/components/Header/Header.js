@@ -6,7 +6,7 @@ import {
    Chip,
    Avatar,
 } from '@mui/material';
-import { Box, styled } from '@mui/system';
+import { borderRadius, borderRight, Box, styled } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useState } from 'react';
 // import { theme } from '../../theme/theme';
@@ -52,7 +52,12 @@ const Header = () => {
                   variant='h4'
                   component={Link}
                   to='/'
-                  sx={{ textDecoration: 'none', color: '#ffffff', display: 'flex', alignItems: 'center' }}
+                  sx={{
+                     textDecoration: 'none',
+                     color: '#ffffff',
+                     display: 'flex',
+                     alignItems: 'center',
+                  }}
                >
                   <LocalHospitalIcon fontSize='large' />
                   Sebok
@@ -64,20 +69,29 @@ const Header = () => {
                   />
                ) : (
                   <MenuContainer>
-                     <Typography variant='h5' component={Link} to='/about' sx={{textDecoration: 'none', color: '#fff', mr: 3}}>
-                        About us
-                     </Typography>
-                     <Typography variant='h5' component={Link} to='/contact' sx={{textDecoration: 'none', color: '#fff', mr: 3}}>
-                        Contact
-                     </Typography>
-
                      <Button
-                        variant='outlined'
                         color='secondary'
+                        component={Link}
+                        to='/about'
                         sx={{
                            mr: 2,
                            p: '.8rem 1.4rem',
-                           fontWeight: '600',
+                           '&:hover': {
+                              background: theme.palette.secondary.main,
+                              color: theme.palette.primary.main,
+                           },
+                        }}
+                     >
+                        About us
+                     </Button>
+
+                     <Button
+                        color='secondary'
+                        component={Link}
+                        to='/appointment'
+                        sx={{
+                           mr: 2,
+                           p: '.8rem 1.4rem',
                            '&:hover': {
                               background: theme.palette.secondary.main,
                               color: theme.palette.primary.main,
@@ -106,7 +120,7 @@ const Header = () => {
                            variant='outlined'
                            color='secondary'
                            onClick={handleSignOut}
-                           sx={{ p: '.8rem 1.6rem' }}
+                           sx={{ p: '.8rem 1.6rem', fontWeight: '600' }}
                         >
                            Logout
                         </Button>
@@ -114,12 +128,14 @@ const Header = () => {
                      {user && (
                         <Chip
                            variant='outlined'
-                           sx={{ ml: 2, border: 0 }}
+                           sx={{ ml: 2, border: 0, fontSize: '16px' }}
                            avatar={
                               user.photoURL ? (
                                  <Avatar alt='user' src={user.photoURL} />
                               ) : (
-                                 <Avatar><AccountBoxIcon /></Avatar>
+                                 <Avatar>
+                                    <AccountBoxIcon />
+                                 </Avatar>
                               )
                            }
                            label={user.displayName}

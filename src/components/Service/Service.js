@@ -46,8 +46,9 @@ const Service = ({ service }) => {
                   size='small'
                   variant='outlined'
                   onClick={() => history.push(`/service/${id}`)}
+                  sx={{p: '.8rem 1.4rem'}}
                >
-                  Learn More
+                  See Details
                </Button>
             </CardActions>
          </Card>
