@@ -23,37 +23,26 @@ const ServiceDetails = () => {
    return (
       <Container>
          {service && (
-            <Grid
-               container
-               justifyContent='center'
-               alignItems='center'
-               height='60vh'
-            >
-               <Grid item md={10} mt={15}>
+            <Grid container justifyContent='center' alignItems='center'>
+               <Grid item md={12} mt={15}>
                   <Paper>
                      <Grid container>
-                        <Grid item sm={6} md={5}>
-                           <Box
-                              sx={{
-                                 minHeight: '400px',
-                                 backgroundImage: `url(${service.imageUrl})`,
-                                 backgroundSize: 'cover',
-                                 display: 'flex',
-                                 justifyContent: 'center',
-                                 alignItems: 'center',
+                        <Grid
+                           item
+                           sm={6}
+                           lg={3}
+                           alignItems='center'
+                           sx={{ display: 'flex' }}
+                        >
+                           <img
+                              src={service.imageUrl}
+                              alt=''
+                              style={{
+                                 maxWidth: '100%',
                               }}
-                           >
-                              <img
-                                 src={service.imageUrl}
-                                 alt=''
-                                 style={{
-                                    maxWidth: '100%',
-                                    alignSelf: 'center',
-                                 }}
-                              />
-                           </Box>
+                           />
                         </Grid>
-                        <Grid item sm={6} md={7} alignSelf='center'>
+                        <Grid item sm={6} lg={7} alignSelf='center'>
                            <Box p={5}>
                               <Typography
                                  variant='h4'

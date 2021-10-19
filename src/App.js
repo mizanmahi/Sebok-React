@@ -9,6 +9,9 @@ import ServiceDetails from './components/ServiceDetails/ServiceDetails';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import AuthContextProvider from './context/AuthContextProvider';
+import Footer from './components/Footer/Footer';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import About from './pages/About';
 
 function App() {
    console.log(theme);
@@ -26,16 +29,20 @@ function App() {
                      <Route exact path='/home'>
                         <Home />
                      </Route>
-                     <Route exact path='/service/:serviceId'>
+                     <ProtectedRoute exact path='/service/:serviceId'>
                         <ServiceDetails />
-                     </Route>
+                     </ProtectedRoute>
                      <Route exact path='/login'>
                         <Login />
                      </Route>
                      <Route exact path='/signup'>
                         <Signup />
                      </Route>
+                     <Route exact path='/about'>
+                        <About />
+                     </Route>
                   </Switch>
+                  <Footer />
                </BrowserRouter>
             </ThemeProvider>
          </AuthContextProvider>

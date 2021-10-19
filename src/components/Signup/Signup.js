@@ -8,10 +8,10 @@ import {
 } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import React, { useState } from 'react';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import useFirebase from '../../hooks/useFirebase';
+import { useAuth } from '../../hooks/useAuth';
 
 //  import './login.css';
 
@@ -27,11 +27,29 @@ const Signup = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
+   const { handleGoogleSignin, setError } = useAuth();
+   const location = useLocation();
+   const history = useHistory();
+
+   console.log(location);
+
    const handleSubmit = (e) => {
       e.preventDefault();
       console.log(email, password);
 
       handlePasswordSignup(email, password, userName);
+   };
+
+   const googleSigninHandler = () => {
+      handleGoogleSignin()
+         .then((res) => {
+            setError(null);
+            console.log(res.user);
+            location.state
+               ? history.push(location.state.from.pathname)
+               : history.push('/');
+         })
+         .catch((err) => setError(err.message));
    };
 
    return (
@@ -130,21 +148,11 @@ const Signup = () => {
                            width: '250px',
                            justifyContent: 'flex-start',
                         }}
-                     >
-                        Continue With Facebook
-                     </Button>
-                     <Button
-                        variant='outlined'
-                        startIcon={<FacebookIcon sx={{ color: '#4267B2' }} />}
-                        sx={{
-                           borderRadius: '40px',
-                           mb: 1,
-                           width: '250px',
-                           justifyContent: 'flex-start',
-                        }}
+                        onClick={googleSigninHandler}
                      >
                         Continue With Google
                      </Button>
+                     
                   </Box>
                </Grid>
             </Grid>

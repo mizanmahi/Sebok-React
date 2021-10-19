@@ -8,14 +8,13 @@ import {
    TextField,
    Typography,
 } from '@mui/material';
-import { Box, styled } from '@mui/system';
 import React, { useState } from 'react';
-import FacebookIcon from '@mui/icons-material/Facebook';
+import { Box, styled } from '@mui/system';
 import GoogleIcon from '@mui/icons-material/Google';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 import './login.css';
-import { Link } from 'react-router-dom';
-import useFirebase from '../../hooks/useFirebase';
+import { useAuth } from '../../hooks/useAuth';
 
 const UnderlinedText = styled(Typography)(({ theme }) => ({
    color: theme.palette.warning.main,
@@ -27,13 +26,38 @@ const Login = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
-   const {handlePasswordSignin, handleGoogleSignin } = useFirebase()
+   const location = useLocation();
+   const history = useHistory();
+
+   const { handlePasswordSignin, handleGoogleSignin, setError } = useAuth();
 
    const submitHandler = (e) => {
-      e.preventDefault()
-      console.log({email, password});
-      handlePasswordSignin(email, password);
-   }
+      e.preventDefault();
+      console.log({ email, password });
+      handlePasswordSignin(email, password)
+         .then((res) => {
+            setError(null);
+            location.state
+               ? history.push(location.state.from.pathname)
+               : history.push('/');
+         })
+         .catch((err) => {
+            console.log(err.message);
+            setError(err.message);
+         });
+   };
+
+   const googleSigninHandler = () => {
+      handleGoogleSignin()
+         .then((res) => {
+            setError(null);
+            console.log(res.user);
+            location.state
+               ? history.push(location.state.from.pathname)
+               : history.push('/');
+         })
+         .catch((err) => setError(err.message));
+   };
 
    return (
       <div>
@@ -59,7 +83,6 @@ const Login = () => {
                         component='form'
                         sx={{ display: 'flex', flexDirection: 'column' }}
                         onSubmit={submitHandler}
-                        
                      >
                         <TextField
                            label='Username or Email'
@@ -101,7 +124,13 @@ const Login = () => {
                         </Button>
                         <Typography align='center'>
                            Don't have an account?{' '}
-                           <UnderlinedText component={Link} to='/signup'>
+                           <UnderlinedText
+                              component={Link}
+                              to={{
+                                 pathname: '/signup',
+                                 state: location.state,
+                              }}
+                           >
                               Create one
                            </UnderlinedText>
                         </Typography>
@@ -132,22 +161,9 @@ const Login = () => {
                            width: '250px',
                            justifyContent: 'flex-start',
                         }}
-                        onClick={handleGoogleSignin}
-
+                        onClick={googleSigninHandler}
                      >
                         Continue With Google
-                     </Button>
-                     <Button
-                        variant='outlined'
-                        startIcon={<FacebookIcon sx={{ color: '#4267B2' }} />}
-                        sx={{
-                           borderRadius: '40px',
-                           mb: 1,
-                           width: '250px',
-                           justifyContent: 'flex-start',
-                        }}
-                     >
-                        Continue With Facebook
                      </Button>
                   </Box>
                </Grid>
