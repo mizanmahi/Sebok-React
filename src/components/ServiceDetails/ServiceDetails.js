@@ -15,10 +15,10 @@ const ServiceDetails = () => {
             const newService = services.find(
                (service) => service.id === parseInt(serviceId)
             );
-            console.log(newService);
+            
             setService(newService);
          });
-   }, []);
+   }, [serviceId]);
 
    return (
       <Container>
