@@ -22,9 +22,7 @@ const useFirebase = () => {
    const [name, setName] = useState(null);
 
    const auth = getAuth();
-
    const history = useHistory();
-
    const googleProvider = new GoogleAuthProvider();
 
    const handlePasswordSignin = (email, password) => {

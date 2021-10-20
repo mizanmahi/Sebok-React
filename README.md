@@ -9,5 +9,5 @@ See Live: [Sebok](https://sebok-2b3c9.web.app/)
 -  React js for frontend
 -  Material ui for design
 -  React Icons
--  React Router
--  Firebase for auth
+-  React Router dom
+-  Firebase for authentication
