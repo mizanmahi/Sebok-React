@@ -2,7 +2,7 @@
 
 ## A modern way of medical service, We strive to build a nation with good health
 
-See Live: [Sebok](https://sebok-2b3c9.web.app/about)
+See Live: [Sebok](https://sebok-2b3c9.web.app/)
 
 ### Tools I used
 
