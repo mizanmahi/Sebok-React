@@ -20,7 +20,7 @@ const Appointment = () => {
                   backgroundImage: `linear-gradient(to right, rgba(255,255,255,.7), rgba(255,255,255,.7)),url(${appointImage})`,
                   backgroundSize: 'cover',
                   p: 5,
-                  mt: 5
+                  mt: 5,
                }}
             >
                <Grid container spacing={2}>
@@ -35,7 +35,7 @@ const Appointment = () => {
                            color='primary'
                            sx={{ mb: 3, fontWeight: 800 }}
                         >
-                           We made your medical treatment easy
+                           We made your medical treatment easy!
                         </Typography>
                         <Typography
                            variant='body1'

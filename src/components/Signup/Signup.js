@@ -128,19 +128,7 @@ const Signup = () => {
                            error={passErr ? true : false}
                            helperText={passErr ? passErr : ''}
                         />
-                        {/* <Box
-                            sx={{
-                               display: 'flex',
-                               justifyContent: 'space-between',
-                               alignItems: 'center',
-                            }}
-                         >
-                            <FormControlLabel
-                               control={<Checkbox color='warning' />}
-                               label='Remember me'
-                            />
-                            <UnderlinedText>Forgot Password</UnderlinedText>
-                         </Box> */}
+
                         <Button
                            variant='contained'
                            sx={{ mt: 3, mb: 1 }}

@@ -2,6 +2,7 @@ import { useTheme } from '@emotion/react';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
+import Newsletter from '../components/Newsletter/Newsletter';
 import SectionHeader from '../components/SectionHeader/SectionHeader';
 
 import doctorsImage from '../images/doctors.jpg';
@@ -51,6 +52,7 @@ const About = () => {
                </Grid>
             </Grid>
          </Container>
+         <Newsletter />
       </section>
    );
 };
