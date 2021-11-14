@@ -1,8 +1,10 @@
 import {
+   Alert,
    Button,
    Container,
    Grid,
    Paper,
+   Snackbar,
    TextField,
    Typography,
 } from '@mui/material';
@@ -49,7 +51,7 @@ const Signup = () => {
          return;
       }
 
-      handlePasswordSignup(email, password, userName);
+      handlePasswordSignup(email, password, userName, setOpen);
    };
 
    const googleSigninHandler = () => {
@@ -59,6 +61,7 @@ const Signup = () => {
             location.state
                ? history.push(location.state.from.pathname)
                : history.push('/');
+            setOpen(true);
          })
          .catch((err) => setError(err.message))
          .finally(() => {
@@ -74,6 +77,12 @@ const Signup = () => {
    const handlePassChange = (e) => {
       setPassErr(null);
       setPassword(e.target.value);
+   };
+
+   const [open, setOpen] = useState(false);
+
+   const handleClose = () => {
+      setOpen(false);
    };
 
    return (
@@ -177,6 +186,21 @@ const Signup = () => {
                </Grid>
             </Grid>
          </Container>
+         {/* Snackbar */}
+         <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+         >
+            <Alert
+               onClose={handleClose}
+               severity='success'
+               sx={{ width: '100%' }}
+            >
+               Sign up success full!
+            </Alert>
+         </Snackbar>
       </div>
    );
 };

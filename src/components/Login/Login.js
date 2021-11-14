@@ -1,10 +1,12 @@
 import {
+   Alert,
    Button,
    Checkbox,
    Container,
    FormControlLabel,
    Grid,
    Paper,
+   Snackbar,
    TextField,
    Typography,
 } from '@mui/material';
@@ -90,6 +92,7 @@ const Login = () => {
    const googleSigninHandler = () => {
       handleGoogleSignin()
          .then((res) => {
+            setOpen(true)
             setError(null);
             location.state
                ? history.push(location.state.from.pathname)
@@ -99,6 +102,12 @@ const Login = () => {
          .finally(() => {
             setUserLoading(false);
          });
+   };
+
+   const [open, setOpen] = useState(false);
+
+   const handleClose = () => {
+      setOpen(false);
    };
 
    return (
@@ -222,6 +231,20 @@ const Login = () => {
                </Grid>
             </Grid>
          </Container>
+         <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+         >
+            <Alert
+               onClose={handleClose}
+               severity='success'
+               sx={{ width: '100%' }}
+            >
+               Sign in success full!
+            </Alert>
+         </Snackbar>
       </div>
    );
 };

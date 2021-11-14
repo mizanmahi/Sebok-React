@@ -30,7 +30,7 @@ const useFirebase = () => {
       return signInWithEmailAndPassword(auth, email, password);
    };
 
-   const handlePasswordSignup = (email, password, userName) => {
+   const handlePasswordSignup = (email, password, userName, setOpen) => {
       console.log(email, password, userName);
       setName(userName);
       createUserWithEmailAndPassword(auth, email, password, userName)
@@ -46,8 +46,9 @@ const useFirebase = () => {
                .catch((err) => setError(err.message))
                .finally(() => {
                   history.push('/');
-                  window.location.reload()
+                  window.location.reload();
                });
+            setOpen(true);
          })
          .catch((err) => {
             setError(err.message);
@@ -59,10 +60,10 @@ const useFirebase = () => {
       return signInWithPopup(auth, googleProvider);
    };
 
-   const handleSignOut = () => {
+   const handleSignOut = (setOpen) => {
       setUserLoading(true);
       signOut(auth)
-         .then((res) => console.log('signed out'))
+         .then((res) => setOpen(true))
          .catch((err) => {
             setError(err.message);
          })

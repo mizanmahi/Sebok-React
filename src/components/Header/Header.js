@@ -9,6 +9,8 @@ import {
    ListItem,
    ListItemButton,
    ListItemText,
+   Snackbar,
+   Alert,
 } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -43,6 +45,12 @@ const Header = () => {
       display: 'flex',
       alignItems: 'center',
    });
+
+   const [open, setOpen] = useState(false);
+
+   const handleClose = () => {
+      setOpen(false);
+   };
 
    return (
       <Header>
@@ -151,7 +159,7 @@ const Header = () => {
                         <Button
                            variant='outlined'
                            color='secondary'
-                           onClick={handleSignOut}
+                           onClick={() => handleSignOut(setOpen)}
                            sx={{ p: '.5rem 1.2rem', fontWeight: '600' }}
                         >
                            Logout
@@ -260,6 +268,20 @@ const Header = () => {
                </Box>
             </Drawer>
          </Container>
+         <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+         >
+            <Alert
+               onClose={handleClose}
+               severity='warning'
+               sx={{ width: '100%' }}
+            >
+               Logout Successful!
+            </Alert>
+         </Snackbar>
       </Header>
    );
 };
