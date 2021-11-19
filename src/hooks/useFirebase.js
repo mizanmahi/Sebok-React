@@ -84,20 +84,20 @@ const useFirebase = () => {
       });
 
       return unsubscribe;
-   }, []);
+   }, [auth, name]);
 
    return {
       user,
-      setUser,
+      userLoading,
+      name,
       error,
+      setUser,
       setError,
       handlePasswordSignin,
       handlePasswordSignup,
       handleGoogleSignin,
       handleSignOut,
-      userLoading,
       setUserLoading,
-      name,
       setName,
    };
 };
